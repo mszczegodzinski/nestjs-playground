@@ -3,12 +3,15 @@ POST http://localhost:3000/dishes
 Content-Type: application/json
 
 {
-  "name": "My supper Broccoli",
+  "name": "Broccoli",
   "servings": 1
 }
 
 ### Read dishes
 GET http://localhost:3000/dishes
+
+### Read dish
+GET http://localhost:3000/dishes/1
 
 ### Update dish
 PUT http://localhost:3000/dishes

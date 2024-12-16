@@ -1,63 +1,47 @@
+import { DishService } from './dish.service';
 import {
   Body,
   Controller,
   Delete,
   Get,
-  NotFoundException,
   Param,
+  ParseIntPipe,
   Post,
   Put,
 } from '@nestjs/common';
-import { Dish } from './Dish';
 import { UpdateDishDto } from './dto/update-dish.dto';
 import { CreateDishDto } from './dto/create-dish.dto';
+
 @Controller('dishes')
 export class DishesController {
-  trackId = 1;
-  dishes: Dish[] = [
-    {
-      id: this.trackId++,
-      name: 'Overnight Oats',
-      servings: 2,
-      description: 'Yummy breakfast',
-    },
-  ];
+  private dishService: DishService;
+
+  constructor(dishService: DishService) {
+    this.dishService = dishService;
+  }
 
   @Post()
   createOne(@Body() dish: CreateDishDto) {
-    const newDish: Dish = {
-      id: this.trackId++,
-      ...dish,
-    };
-    this.dishes.push(newDish);
-    return dish;
+    return this.dishService.create(dish);
   }
 
   @Get()
   readAll() {
-    return this.dishes;
+    return this.dishService.read();
+  }
+
+  @Get(':id')
+  readOne(@Param('id', ParseIntPipe) dishId: number) {
+    return this.dishService.getOneById(dishId);
   }
 
   @Put()
   updateOne(@Body() dish: UpdateDishDto) {
-    const dishToUpdate = this.dishes.find(
-      (d: Dish) => d.id === Number(dish.id),
-    );
-    if (!dishToUpdate) {
-      throw new NotFoundException('Dish not found');
-    } else {
-      Object.assign(dishToUpdate, dish);
-    }
-    return dishToUpdate;
+    return this.dishService.update(dish);
   }
 
   @Delete(':id')
-  deleteOne(@Param('id') dishId: string) {
-    const dishToRemove = this.dishes.find((d: Dish) => d.id === Number(dishId));
-    if (!dishToRemove) {
-      throw new NotFoundException(`Dish id: ${dishId} not found`);
-    }
-    this.dishes = this.dishes.filter((d: Dish) => d.id !== Number(dishId));
-    return { dishId };
+  deleteOne(@Param('id', ParseIntPipe) dishId: number) {
+    return this.dishService.delete(dishId);
   }
 }
