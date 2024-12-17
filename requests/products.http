@@ -6,7 +6,7 @@ Content-Type: application/json
   "name": "Pepper",
   "unit": "pinch",
   "amount": 1,
-  "dishId": 1
+  "dishId": 3
 }
 
 ### Read products

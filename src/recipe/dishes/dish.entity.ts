@@ -1,4 +1,4 @@
-import { Product } from 'src/recipe/products/Product';
+import { Product } from 'src/recipe/products/product.entity';
 import {
   Entity,
   Column,
