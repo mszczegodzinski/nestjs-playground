@@ -6,10 +6,13 @@ import { DishService } from './dishes/dish.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Product } from './products/product.entity';
 import { Dish } from './dishes/dish.entity';
+import { IngredientsController } from './ingredients/ingredients.controller';
+import { Ingredient } from './ingredients/ingredient.entity';
+import { IngredientService } from './ingredients/ingredient.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Product, Dish])],
-  controllers: [DishesController, ProductsController],
-  providers: [ProductService, DishService],
+  imports: [TypeOrmModule.forFeature([Product, Dish, Ingredient])],
+  controllers: [DishesController, ProductsController, IngredientsController],
+  providers: [ProductService, DishService, IngredientService],
 })
 export class RecipeModule {}

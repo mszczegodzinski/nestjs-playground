@@ -10,7 +10,7 @@ import { UserModule } from './user/user.module';
       type: 'sqlite',
       database: './database/my-db.sqlite3',
       autoLoadEntities: true,
-      synchronize: false, // not for production
+      synchronize: true, // not for production
     }),
     UserModule,
   ],

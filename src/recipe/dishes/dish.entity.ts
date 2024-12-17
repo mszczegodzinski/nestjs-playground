@@ -1,4 +1,3 @@
-import { Product } from 'src/recipe/products/product.entity';
 import { User } from 'src/user/user.entity';
 import {
   Entity,
@@ -8,6 +7,7 @@ import {
   OneToMany,
   ManyToOne,
 } from 'typeorm';
+import { Ingredient } from '../ingredients/ingredient.entity';
 
 @Entity()
 export class Dish extends BaseEntity {
@@ -23,12 +23,14 @@ export class Dish extends BaseEntity {
   @Column({ nullable: true, type: 'text' })
   description?: string;
 
-  @OneToMany(() => Product, (product: Product) => product.dish)
-  products: Product[];
-
   @ManyToOne(() => User, (user: User) => user.dishes, { onDelete: 'CASCADE' })
   user: User;
 
   @Column({ type: 'boolean', default: false })
   isPublic: number;
+
+  @OneToMany(() => Ingredient, (ingredient: Ingredient) => ingredient.dish, {
+    onDelete: 'CASCADE',
+  })
+  ingredients: Ingredient[];
 }

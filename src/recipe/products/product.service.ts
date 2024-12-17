@@ -2,20 +2,17 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { Product } from './product.entity';
-import { DishService } from '../dishes/dish.service';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class ProductService {
   constructor(
-    private dishService: DishService,
     @InjectRepository(Product) private productRepository: Repository<Product>,
   ) {}
 
   async create(product: CreateProductDto): Promise<Product> {
     const newProduct = this.productRepository.create(product);
-    newProduct.dish = await this.dishService.getOneById(product.dishId);
     return this.productRepository.save(newProduct);
   }
 
