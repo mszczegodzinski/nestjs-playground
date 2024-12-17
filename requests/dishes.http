@@ -3,7 +3,7 @@ POST http://localhost:3000/dishes
 Content-Type: application/json
 
 {
-  "name": "Broccoli",
+  "name": "Broccoli Dish",
   "servings": 1
 }
 

@@ -21,6 +21,6 @@ export class Dish extends BaseEntity {
   @Column({ nullable: true, type: 'text' })
   description?: string;
 
-  //TODO: create One To Many relationship between Dish and Product
+  @OneToMany(() => Product, (product: Product) => product.dish)
   products: Product[];
 }
